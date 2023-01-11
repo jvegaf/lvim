@@ -24,13 +24,23 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, "t", "<m-l>", [[<C-\><C-n><C-W>l]], opts)
 end
 
-vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
+keymap("n", "<m-e>", "<cmd>NvimTreeFocus<cr>", opts)
 
--- Tabs --
--- keymap("n", "\\", ":tabnew %<cr>", opts)
--- keymap("n", "\\", ":tabnew %<cr>", opts)
--- keymap("n", "<s-\\>", ":tabclose<cr>", opts)
--- keymap("n", "<s-\\>", ":tabonly<cr>", opts)
+
+-- move
+-- Normal-mode commands
+keymap("n", "<m-down>", ":MoveLine(1)<CR>", opts)
+keymap("n", "<m-up>", ":MoveLine(-1)<CR>", opts)
+keymap("n", "<m-left>", ":MoveHChar(-1)<CR>", opts)
+keymap("n", "<m-right>", ":MoveHChar(1)<CR>", opts)
+
+-- Visual-mode commands
+keymap("v", "<m-down>", ":MoveBlock(1)<CR>", opts)
+keymap("v", "<m-up>", ":MoveBlock(-1)<CR>", opts)
+keymap("v", "<m-left>", ":MoveHBlock(-1)<CR>", opts)
+keymap("v", "<m-right>", ":MoveHBlock(1)<CR>", opts)
+
+vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -59,14 +69,23 @@ keymap("v", "P", '"_dP', opts)
 
 keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
 
+-- Browser Search
+keymap("v", "<m-s>", ":'<,'>BrowserSearch<CR>", opts)
+
+-- Easyalign
+keymap("n", "ga", "<Plug>(EasyAlign)", opts)
+keymap("x", "ga", "<Plug>(EasyAlign)", opts)
+
 keymap(
   "n",
   "<F6>",
   [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>]],
   opts
 )
+
 keymap("n", "<F7>", "<cmd>TSHighlightCapturesUnderCursor<cr>", opts)
-keymap("n", "<C-z>", "<cmd>ZenMode<cr>", opts)
+-- keymap("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", opts)
+-- keymap("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", opts)
 keymap("n", "-", ":lua require'lir.float'.toggle()<cr>", opts)
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 keymap("n", "<m-v>", "<cmd>lua require('lsp_lines').toggle()<cr>", opts)
@@ -76,13 +95,13 @@ keymap("x", "<m-/>", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vi
 
 vim.api.nvim_set_keymap(
   "n",
-  "<tab>",
+  "<s-tab>",
   "<cmd>lua require('telescope').extensions.harpoon.marks(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Harpoon'})<cr>",
   opts
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<s-tab>",
+  "<tab>",
   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal'})<cr>",
   opts
 )
@@ -105,8 +124,6 @@ M.show_documentation = function()
     vim.cmd("h " .. vim.fn.expand "<cword>")
   elseif vim.tbl_contains({ "man" }, filetype) then
     vim.cmd("Man " .. vim.fn.expand "<cword>")
-  elseif vim.fn.expand "%:t" == "Cargo.toml" then
-    require("crates").show_popup()
   else
     vim.lsp.buf.hover()
   end

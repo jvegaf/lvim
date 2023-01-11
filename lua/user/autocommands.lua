@@ -15,7 +15,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = {
-    "Jaq",
     "qf",
     "help",
     "man",
@@ -35,16 +34,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "Jaq" },
-  callback = function()
-    vim.cmd [[
-      nnoremap <silent> <buffer> <m-r> :close<CR>
-      " nnoremap <silent> <buffer> <m-r> <NOP> 
-      set nobuflisted 
-    ]]
-  end,
-})
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "" },
@@ -89,15 +78,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "NeogitCommitMessage" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-    vim.cmd "startinsert!"
   end,
 })
 
@@ -170,9 +150,8 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 --   end,
 -- })
 
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
---   pattern = { "*.ts" },
---   callback = function()
---     vim.lsp.buf.format { async = true }
---   end,
--- })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  callback = function()
+    vim.lsp.buf.format { async = true }
+  end,
+})
