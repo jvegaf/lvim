@@ -75,4 +75,15 @@ lvim.plugins = {
     end,
   },
   "WhoIsSethDaniel/mason-tool-installer.nvim",
+  {
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
 }
