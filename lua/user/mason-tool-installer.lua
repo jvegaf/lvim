@@ -1,25 +1,23 @@
-require('mason-tool-installer').setup {
+require("mason-tool-installer").setup {
 
   ensure_installed = {
 
-    'vim-language-server',
-    'angular-language-server',
-    'stylua',
-    'shellcheck',
-    'editorconfig-checker',
-    'eslint_d',
-    'typescript-language-server',
-    'prettierd',
-    'luacheck',
-    'shellcheck',
-    'intelephense',
-    'shfmt',
-    'vint',
-    'clangd',
-    'clang-format',
-    -- 'phpactor',
-    'php-debug-adapter',
-    'jdtls'
+    "vim-language-server",
+    "angular-language-server",
+    "stylua",
+    "shellcheck",
+    "eslint_d",
+    "typescript-language-server",
+    "prettierd",
+    "luacheck",
+    "shellcheck",
+    "intelephense",
+    "shfmt",
+    "vint",
+    "clangd",
+    "clang-format",
+    "php-debug-adapter",
+    "jdtls",
   },
 
   -- if set to true this will check each tool for updates. If updates
