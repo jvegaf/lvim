@@ -26,6 +26,11 @@ end
 
 keymap("n", "<m-e>", "<cmd>NvimTreeFocus<cr>", opts)
 
+-- Select all
+keymap("n", "<C-a>", "gg<S-v>G", opts)
+
+-- BrowserSearch
+keymap("v", "<A-s>", ":'<,'>BrowserSearch<CR>", opts)
 
 -- move
 -- Normal-mode commands
@@ -69,8 +74,6 @@ keymap("v", "P", '"_dP', opts)
 
 keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
 
--- Browser Search
-keymap("v", "<m-s>", ":'<,'>BrowserSearch<CR>", opts)
 
 -- Easyalign
 keymap("n", "ga", "<Plug>(EasyAlign)", opts)
@@ -79,12 +82,13 @@ keymap("x", "ga", "<Plug>(EasyAlign)", opts)
 keymap(
   "n",
   "<F6>",
-  [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>]],
+  [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>]]
+  ,
   opts
 )
 
 keymap("n", "<F7>", "<cmd>TSHighlightCapturesUnderCursor<cr>", opts)
--- keymap("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", opts)
+keymap("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", opts)
 -- keymap("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", opts)
 keymap("n", "-", ":lua require'lir.float'.toggle()<cr>", opts)
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
@@ -96,15 +100,16 @@ keymap("x", "<m-/>", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vi
 vim.api.nvim_set_keymap(
   "n",
   "<s-tab>",
-  "<cmd>lua require('telescope').extensions.harpoon.marks(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Harpoon'})<cr>",
+  "<cmd>lua require('telescope').extensions.harpoon.marks(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Harpoon'})<cr>"
+  ,
   opts
 )
-vim.api.nvim_set_keymap(
-  "n",
-  "<tab>",
-  "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal'})<cr>",
-  opts
-)
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<tab>",
+--   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal'})<cr>",
+--   opts
+-- )
 
 vim.cmd [[
   function! QuickFixToggle()
@@ -129,5 +134,7 @@ M.show_documentation = function()
   end
 end
 vim.api.nvim_set_keymap("n", "K", ":lua require('user.keymaps').show_documentation()<CR>", opts)
+
+return M
 
 return M

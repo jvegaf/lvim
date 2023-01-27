@@ -33,7 +33,7 @@ lvim.builtin.which_key.mappings["d"] = {
 lvim.builtin.which_key.mappings["f"] = {
   name = "Find",
   b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-  c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+  c = { "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>", "Colorscheme" },
   f = { "<cmd>Telescope find_files<cr>", "Find files" },
   t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
   s = { "<cmd>Telescope grep_string<cr>", "Find String" },

@@ -67,6 +67,8 @@ lvim.plugins = {
     end,
   },
 
+  "romgrk/barbar.nvim",
+
   {
     "andymass/vim-matchup",
     event = "CursorMoved",
