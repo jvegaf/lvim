@@ -17,6 +17,7 @@ lvim.plugins = {
   "NvChad/nvim-colorizer.lua",
   "ghillb/cybu.nvim",
   "moll/vim-bbye",
+  "rcarriga/nvim-notify",
   "folke/todo-comments.nvim",
   "windwp/nvim-spectre",
   "f-person/git-blame.nvim",
@@ -33,9 +34,6 @@ lvim.plugins = {
   "nacro90/numb.nvim",
   "sindrets/diffview.nvim",
   "simrat39/rust-tools.nvim",
-  "olexsmir/gopher.nvim",
-  "leoluz/nvim-dap-go",
-  "mfussenegger/nvim-dap-python",
   "jose-elias-alvarez/typescript.nvim",
   "mxsdev/nvim-dap-vscode-js",
   "petertriho/nvim-scrollbar",
@@ -68,6 +66,8 @@ lvim.plugins = {
   },
 
   "romgrk/barbar.nvim",
+
+  "jvegaf/move.nvim",
 
   {
     "andymass/vim-matchup",
