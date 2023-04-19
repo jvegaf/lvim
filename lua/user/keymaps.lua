@@ -33,17 +33,10 @@ keymap("n", "<C-a>", "gg<S-v>G", opts)
 keymap("v", "<A-s>", ":'<,'>BrowserSearch<CR>", opts)
 
 -- move
--- Normal-mode commands
-keymap("n", "<m-down>", ":MoveLine(1)<CR>", opts)
-keymap("n", "<m-up>", ":MoveLine(-1)<CR>", opts)
-keymap("n", "<m-left>", ":MoveHChar(-1)<CR>", opts)
-keymap("n", "<m-right>", ":MoveHChar(1)<CR>", opts)
-
--- Visual-mode commands
-keymap("v", "<m-down>", ":MoveBlock(1)<CR>", opts)
-keymap("v", "<m-up>", ":MoveBlock(-1)<CR>", opts)
-keymap("v", "<m-left>", ":MoveHBlock(-1)<CR>", opts)
-keymap("v", "<m-right>", ":MoveHBlock(1)<CR>", opts)
+keymap("n", "<m-down>", ":m .+1<CR>==", opts)
+keymap("n", "<m-up>", ":m .-2<CR>==", opts)
+keymap("v", "<m-down>", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "<m-up>", ":m '<-2<CR>gv=gv", opts)
 
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 

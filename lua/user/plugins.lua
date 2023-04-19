@@ -12,10 +12,8 @@ lvim.plugins = {
   "j-hui/fidget.nvim",
   "christianchiarulli/nvim-ts-autotag",
   "kylechui/nvim-surround",
-  "christianchiarulli/harpoon",
   "MattesGroeger/vim-bookmarks",
   "NvChad/nvim-colorizer.lua",
-  "ghillb/cybu.nvim",
   "moll/vim-bbye",
   "rcarriga/nvim-notify",
   "folke/todo-comments.nvim",
@@ -66,9 +64,6 @@ lvim.plugins = {
   },
 
   "romgrk/barbar.nvim",
-
-  "jvegaf/move.nvim",
-
   {
     "andymass/vim-matchup",
     event = "CursorMoved",
@@ -79,7 +74,7 @@ lvim.plugins = {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
   {
     "ThePrimeagen/refactoring.nvim",
-    requires = {
+    dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
     },

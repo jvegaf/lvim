@@ -1,7 +1,6 @@
 require("mason-tool-installer").setup {
 
   ensure_installed = {
-
     "vim-language-server",
     "angular-language-server",
     "stylua",
