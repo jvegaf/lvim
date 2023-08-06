@@ -7,7 +7,6 @@ lvim.plugins = {
   "nvim-treesitter/nvim-treesitter-textobjects",
   "christianchiarulli/nvim-ts-rainbow",
   "mfussenegger/nvim-jdtls",
-  -- "karb94/neoscroll.nvim",
   "opalmay/vim-smoothie",
   "j-hui/fidget.nvim",
   "christianchiarulli/nvim-ts-autotag",
@@ -50,7 +49,6 @@ lvim.plugins = {
     "0x100101/lab.nvim",
     build = "cd js && npm ci",
   },
-  { "tzachar/cmp-tabnine", build = "./install.sh" },
 
   "normen/vim-pio",
 
@@ -78,6 +76,19 @@ lvim.plugins = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
     },
+  },
+  {
+    'Exafunction/codeium.vim',
+    lazy = false,
+    event = "InserEnter",
+    config = function()
+      vim.g.codeium_disable_bindings = 1
+
+      vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<C-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
   },
   {
     "folke/trouble.nvim",
