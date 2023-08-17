@@ -24,14 +24,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "lir",
     "DressingSelect",
     "tsplayground",
-    "Markdown",
     "",
   },
   callback = function()
     vim.cmd [[
-      nnoremap <silent> <buffer> q :close<CR> 
-      nnoremap <silent> <buffer> <esc> :close<CR> 
-      set nobuflisted 
+      nnoremap <silent> <buffer> q :close<CR>
+      " nnoremap <silent> <buffer> <esc> :close<CR>
+      set nobuflisted
     ]]
   end,
 })
@@ -41,22 +40,22 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.cmd [[
       nnoremap <silent> <buffer> <m-r> :close<CR>
-      " nnoremap <silent> <buffer> <m-r> <NOP> 
-      set nobuflisted 
+      " nnoremap <silent> <buffer> <m-r> <NOP>
+      set nobuflisted
     ]]
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "" },
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "BufEnter" }, {
+  pattern = { "*" },
   callback = function()
     local buf_ft = vim.bo.filetype
     if buf_ft == "" or buf_ft == nil then
       vim.cmd [[
-      nnoremap <silent> <buffer> q :close<CR> 
-      " nnoremap <silent> <buffer> <c-j> j<CR> 
-      " nnoremap <silent> <buffer> <c-k> k<CR> 
-      set nobuflisted 
+      nnoremap <silent> <buffer> q :close<CR>
+      " nnoremap <silent> <buffer> <c-j> j<CR>
+      " nnoremap <silent> <buffer> <c-k> k<CR>
+      set nobuflisted
     ]]
     end
   end,
@@ -71,19 +70,22 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
       local project_name = project_dir[#project_dir]
       return project_name
     end
-
-    vim.opt.titlestring = get_project_dir() .. " - nvim"
+    vim.opt.titlestring = get_project_dir()
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "term://*" },
-  callback = function()
-    vim.cmd "startinsert!"
-    -- TODO: if java = 2
-    vim.cmd "set cmdheight=1"
-  end,
-})
+-- vim.cmd [[
+-- " autocmd FileType toggleterm nnoremap <buffer> <CR> :startinsert<CR>
+--   autocmd BufEnter * if &filetype ==# 'toggleterm' | startinsert! | endif
+-- ]]
+
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   pattern = { "term://*" },
+--   callback = function()
+--     vim.cmd "startinsert"
+--     -- vim.cmd "set cmdheight=1"
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit", "markdown" },
@@ -139,6 +141,20 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end,
 })
 
+vim.cmd [[
+  augroup terminal_setup | au!
+  autocmd TermOpen * nnoremap <buffer><LeftRelease> <LeftRelease>i
+  autocmd TermEnter * startinsert!
+  augroup end
+]]
+
+vim.api.nvim_create_autocmd({ "TermEnter" }, {
+  pattern = { "*" },
+  callback = function()
+    vim.cmd "startinsert"
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*" },
   callback = function()
@@ -177,3 +193,13 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 --     vim.lsp.buf.format { async = true }
 --   end,
 -- })
+
+-- do things when lsp attaches
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    -- client.server_capabilities.semanticTokensProvider = nil
+    -- print(vim.inspect(client))
+  end,
+})

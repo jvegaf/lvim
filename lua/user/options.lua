@@ -1,47 +1,30 @@
-lvim.colorscheme = "darkplus"
--- lvim.colorscheme = "poimandres"
+lvim.builtin.alpha.dashboard.section.header.val = {
+  "    __                          _    ___         ",
+  "   / /   __  ______  ____ _____| |  / (_)___ ___ ",
+  "  / /   / / / / __ \\/ __ `/ ___/ | / / / __ `__ \\",
+  " / /___/ /_/ / / / / /_/ / /   | |/ / / / / / / /",
+  "/_____/\\__,_/_/ /_/\\__,_/_/    |___/_/_/ /_/ /_/ ",
+}
+
+-- lvim.colorscheme = "onedark"
+-- lvim.colorscheme = "darkplus"
+lvim.colorscheme = "primer_dark"
 lvim.log.level = "warn"
 lvim.builtin.alpha.active = true
-lvim.lsp.diagnostics.float.focusable = true
 lvim.reload_config_on_save = false
 lvim.builtin.illuminate.active = false
 lvim.builtin.bufferline.active = false
--- lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.terminal.active = true
+lvim.builtin.terminal.persist_mode = false
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
--- lvim.builtin.nvimtree.setup.view.mappings.custom_only = true
 lvim.builtin.breadcrumbs.active = true
--- lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.dap.active = true
 lvim.keys.term_mode = { ["<C-l>"] = false }
--- lvim.builtin.cmp.cmdline.enable = false
--- lvim.builtin.cmp.window.documentation = false
--- lvim.builtin.cmp.window.documentation = {
---   border = "rounded",
---   winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
--- }
--- lvim.builtin.cmp.window.completion = {
---   border = "rounded",
---   winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
--- }
--- lvim.builtin.cmp.formatting.source_names = {
---   nvim_lsp = "",
---   emoji = "",
---   path = "",
---   calc = "",
---   cmp_tabnine = "",
---   vsnip = "",
---   luasnip = "",
---   buffer = "",
---   tmux = "",
---   copilot = "",
---   treesitter = "",
--- }
+
+
 -- lvim.builtin.cmp.formatting = {
 --     format = require("tailwindcss-colorizer-cmp").formatter
 -- }
--- lvim.builtin.autopairs.active = false
 -- vim.g.netrw_browse_split = 0
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_winsize = 25
@@ -86,6 +69,7 @@ local options = {
   sidescrolloff = 8,
   guifont = "monospace:h17", -- the font used in graphical neovim applications
   title = true,
+  titleold = vim.split(os.getenv("SHELL") or "", "/")[3] ,
   -- colorcolumn = "80",
   -- colorcolumn = "120",
 }
@@ -115,10 +99,3 @@ vim.filetype.add {
   },
 }
 
-lvim.builtin.nvimtree.setup.view.mappings.list = {
-  { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
-  { key = "h", action = "close_node" },
-  { key = "v", action = "vsplit" },
-  { key = "<C-k>", action = "" },
-  { key = "C", action = "cd" },
-}

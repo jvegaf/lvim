@@ -11,11 +11,34 @@
 --   }
 -- end
 
-lvim.builtin.treesitter.ensure_installed = { "javascript" }
+lvim.builtin.treesitter.ensure_installed = {
+  "java",
+  "python",
+  "javascript",
+}
+
+lvim.builtin.treesitter.rainbow = {
+  enable = true,
+  query = {
+    "rainbow-parens",
+  },
+  strategy = require("ts-rainbow").strategy.global,
+  hlgroups = {
+    -- "TSRainbowRed",
+    "TSRainbowBlue",
+    -- "TSRainbowOrange",
+    -- "TSRainbowCoral",
+    "TSRainbowPink",
+    "TSRainbowYellow",
+    -- "TSRainbowViolet",
+    -- "TSRainbowGreen",
+  },
+}
+
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.auto_install = false
 
-lvim.builtin.treesitter.ignore_install = { "markdown" }
+-- lvim.builtin.treesitter.ignore_install = { "markdown" }
 
 lvim.builtin.treesitter.textobjects = {
   select = {

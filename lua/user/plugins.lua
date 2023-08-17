@@ -1,24 +1,42 @@
 -- Additional Plugins
 lvim.plugins = {
-  "olivercederborg/poimandres.nvim",
-  "bluz71/vim-moonfly-colors",
-  "ellisonleao/gruvbox.nvim",
-  "LunarVim/synthwave84.nvim",
+  {
+    "mawkler/modicator.nvim",
+    event = "ColorScheme",
+  },
+  "HiPhish/nvim-ts-rainbow2",
+  -- {
+  --   dir = "/Users/chris/Repos/bookmark.nvim",
+  -- },
+  "andymass/vim-matchup",
+  "lunarvim/synthwave84.nvim",
+  {
+    "kndndrj/nvim-dbee",
+    build = function()
+      require("dbee").install()
+    end,
+  },
+  "kkharji/sqlite.lua",
+  { url = "git@github.com:ChristianChiarulli/bookmark.nvim.git" },
+  { url = "git@github.com:ChristianChiarulli/onedark.nvim.git" },
+  { url = "git@github.com:LunarVim/primer.nvim.git" },
+  -- { "christianchiarulli/tabnine-nvim", build = "./dl_binaries.sh", branch = "suggestion_hl_group" },
+  "stevearc/dressing.nvim",
+  "AckslD/swenv.nvim",
   "roobert/tailwindcss-colorizer-cmp.nvim",
-  "lunarvim/github.nvim",
-  "nvim-treesitter/playground",
+  -- "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-textobjects",
-  -- "christianchiarulli/nvim-ts-rainbow",
   "mfussenegger/nvim-jdtls",
-  -- "karb94/neoscroll.nvim",
   "opalmay/vim-smoothie",
-  "j-hui/fidget.nvim",
-  "christianchiarulli/nvim-ts-autotag",
+  {
+    "j-hui/fidget.nvim",
+    branch = "legacy",
+  },
+  "windwp/nvim-ts-autotag",
   "kylechui/nvim-surround",
   "christianchiarulli/harpoon",
-  "MattesGroeger/vim-bookmarks",
+  -- "MattesGroeger/vim-bookmarks",
   "NvChad/nvim-colorizer.lua",
-  "ghillb/cybu.nvim",
   "moll/vim-bbye",
   "folke/todo-comments.nvim",
   "windwp/nvim-spectre",
@@ -27,24 +45,22 @@ lvim.plugins = {
   "mattn/vim-gist",
   "mattn/webapi-vim",
   "folke/zen-mode.nvim",
-  "lvimuser/lsp-inlayhints.nvim",
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+    branch = "anticonceal",
+  },
   "lunarvim/darkplus.nvim",
-  "lunarvim/templeos.nvim",
   "kevinhwang91/nvim-bqf",
   "is0n/jaq-nvim",
-  -- "hrsh7th/cmp-emoji",
-  "ggandor/leap.nvim",
   "nacro90/numb.nvim",
-  "TimUntersberger/neogit",
+  "neogitorg/neogit",
   "sindrets/diffview.nvim",
   "simrat39/rust-tools.nvim",
   "olexsmir/gopher.nvim",
   "leoluz/nvim-dap-go",
-  "mfussenegger/nvim-dap-python",
   "jose-elias-alvarez/typescript.nvim",
   "mxsdev/nvim-dap-vscode-js",
   "petertriho/nvim-scrollbar",
-  "renerocksai/telekasten.nvim",
   -- "renerocksai/calendar-vim",
   {
     "saecki/crates.nvim",
@@ -77,7 +93,7 @@ lvim.plugins = {
   },
   {
     "zbirenbaum/copilot.lua",
-    -- cmd = "Copilot",
+    cmd = "Copilot",
     event = "InsertEnter",
   },
   {
@@ -87,23 +103,28 @@ lvim.plugins = {
       require("copilot_cmp").setup()
     end,
   },
-  {
-    "tzachar/cmp-tabnine",
-    event = "InsertEnter",
-    build = "./install.sh",
-  },
+  -- {
+  --   "tzachar/cmp-tabnine",
+  --   event = "BufRead",
+  --   build = "./install.sh",
+  -- },
 
   "MunifTanjim/nui.nvim",
   "Bryley/neoai.nvim",
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VimEnter",
-  --   config = function()
-  --     require("noice").setup()
-  --   end,
-  -- },
+  "mfussenegger/nvim-dap-python",
+  "nvim-neotest/neotest",
+  "nvim-neotest/neotest-python",
+  {
+    "hrsh7th/cmp-emoji",
+    event = "BufRead",
+  },
+  "ThePrimeagen/vim-be-good",
+  -- "folke/noice.nvim",
+  -- "rcarriga/nvim-notify",
 
   -- https://github.com/jose-elias-alvarez/typescript.nvim
   -- "rmagatti/auto-session",
   -- "rmagatti/session-lens"
+  -- "christianchiarulli/nvim-ts-rainbow",
+  -- "karb94/neoscroll.nvim",
 }
