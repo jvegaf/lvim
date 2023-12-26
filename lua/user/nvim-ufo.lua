@@ -1,0 +1,6 @@
+vim.keymap.set("n", "zR", function()
+  require("ufo").openAllFolds()
+end)
+vim.keymap.set("n", "zM", function()
+  require("ufo").closeAllFolds()
+end)

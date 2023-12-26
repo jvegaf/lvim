@@ -1,109 +1,48 @@
 M = {}
-lvim.leader = "space"
+lvim.leader = ","
 
 local opts = { noremap = true, silent = true }
 -- For the description on keymaps, I have a function getOptions(desc) which returns noremap=true, silent=true and desc=desc. Then call: keymap(mode, keymap, command, getOptions("some randome desc")
 
-local keymap = vim.keymap.set
+local map = vim.keymap.set
 
-keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
-keymap("n", "<C-i>", "<C-i>", opts)
+map("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
+map("n", "<C-i>", "<C-i>", opts)
 
--- Normal --
--- Better window navigation
-keymap("n", "<m-h>", "<C-w>h", opts)
-keymap("n", "<m-j>", "<C-w>j", opts)
-keymap("n", "<m-k>", "<C-w>k", opts)
-keymap("n", "<m-l>", "<C-w>l", opts)
-keymap("n", "<m-tab>", "<c-6>", opts)
+map("n", "Q", "<cmd>bdelete!<CR>", opts)
+map("n", "W", "<cmd>write<CR>", opts)
 
-keymap("n", "<Down>", "<cmd>BookmarkNext<cr>", opts)
-keymap("n", "<Up>", "<cmd>BookmarkPrev<cr>", opts)
-keymap("n", "<Right>", "<cmd>FilemarkNext<cr>", opts)
-keymap("n", "<Left>", "<cmd>FilemarkPrev<cr>", opts)
+-- Move Lines
+map("n", "<A-j>", ":m .+1<cr>==", { desc = "Move down" })
+map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move up" })
+-- map("i", "<A-j>", "<esc>:m .+1<cr>==gi", { desc = "Move down" })
+-- map("i", "<A-k>", "<esc>:m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
-function _G.set_terminal_keymaps()
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-h>", [[<C-\><C-n><C-W>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-j>", [[<C-\><C-n><C-W>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-k>", [[<C-\><C-n><C-W>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<m-l>", [[<C-\><C-n><C-W>l]], opts)
-end
+-- Buffers
+map("n", "<S-Tab>", ":BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+map("n", "<Tab>", ":BufferLineCycleNext<cr>", { desc = "Next buffer" })
+map("n", "<leader>bb", ":e #<cr>", { desc = "Switch to Other buffer" })
 
-vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
+-- Select all
+map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
 
--- Tabs --
--- keymap("n", "\\", ":tabnew %<cr>", opts)
--- keymap("n", "\\", ":tabnew %<cr>", opts)
--- keymap("n", "<s-\\>", ":tabclose<cr>", opts)
--- keymap("n", "<s-\\>", ":tabonly<cr>", opts)
+-- Dont move cursor after yank
+map({ "v", "x" }, "y", "ygv<ESC>", { desc = "Yank" })
 
--- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+map("n", "vv", "V", { desc = "Visual line mode" })
 
-keymap("n", "<c-j>", "<c-d>", opts)
-keymap("n", "<c-k>", "<c-u>", opts)
-keymap("n", "<c-m>", "<s-m>", opts)
+map("i", "jk", "<ESC>", { desc = "Change to Normal Mode" })
 
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
-keymap("n", "*", "*zz", opts)
-keymap("n", "#", "#zz", opts)
-keymap("n", "g*", "g*zz", opts)
-keymap("n", "g#", "g#zz", opts)
+-- Dont yank after visual paste
+map("x", "p", [["_dP]])
 
--- Visual --
--- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+-- LSP
+map("n", "<leader>zx", "<Cmd>Telescope diagnostics bufnr=0 theme=get_ivy<CR>", opts)
+map("n", "<leader>zc", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+map("n", "gq", "<Cmd>lua require('lvim.lsp.utils').format()<CR>", opts)
 
-keymap("x", "p", [["_dP]])
--- keymap("v", "p", '"_dp', opts)
--- keymap("v", "P", '"_dP', opts)
-
-keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
-
-keymap(
-  "n",
-  "<F6>",
-  [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>]],
-  opts
-)
-keymap("n", "<F7>", "<cmd>TSHighlightCapturesUnderCursor<cr>", opts)
-keymap("n", "<C-z>", "<cmd>ZenMode<cr>", opts)
-keymap("n", "-", ":lua require'lir.float'.toggle()<cr>", opts)
-keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
-keymap("n", "<m-v>", "<cmd>lua require('lsp_lines').toggle()<cr>", opts)
-
-keymap("n", "<m-/>", "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", opts)
-keymap("x", "<m-/>", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', opts)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<tab>",
-  "<cmd>lua require('telescope').extensions.bookmark.filemarks(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal', prompt_title='Filemarks'})<cr>",
-  opts
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<s-tab>",
-  "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal'})<cr>",
-  opts
-)
-
-vim.cmd [[
-  function! QuickFixToggle()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-      copen
-    else
-      cclose
-    endif
-  endfunction
-]]
-
-keymap("n", "<m-q>", ":call QuickFixToggle()<cr>", opts)
 
 M.show_documentation = function()
   local filetype = vim.bo.filetype

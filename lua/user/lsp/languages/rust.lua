@@ -1,14 +1,20 @@
+
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
 
 local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
-local codelldb_adapter = {
-  type = "server",
-  port = "${port}",
-  executable = {
-    command = mason_path .. "bin/codelldb",
-    args = { "--port", "${port}" },
-  },
-}
+
+local codelldb_path = mason_path .. "bin/codelldb"
+local liblldb_path = mason_path .. "packages/codelldb/extension/lldb/lib/liblldb"
+local this_os = vim.loop.os_uname().sysname
+
+-- The path in windows is different
+if this_os:find "Windows" then
+  codelldb_path = mason_path .. "packages\\codelldb\\extension\\adapter\\codelldb.exe"
+  liblldb_path = mason_path .. "packages\\codelldb\\extension\\lldb\\bin\\liblldb.dll"
+else
+  -- The liblldb extension is .so for linux and .dylib for macOS
+  liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
+end
 
 pcall(function()
   require("rust-tools").setup {
@@ -19,7 +25,7 @@ pcall(function()
         use_telescope = true,
       },
       inlay_hints = {
-        auto = false,
+        auto = true,
         only_current_line = false,
         show_parameter_hints = false,
         parameter_hints_prefix = "<-",
@@ -43,7 +49,8 @@ pcall(function()
       end,
     },
     dap = {
-      adapter = codelldb_adapter,
+      -- adapter= codelldb_adapter,
+      adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
     },
     server = {
       on_attach = function(client, bufnr)
@@ -68,9 +75,8 @@ pcall(function()
   }
 end)
 
--- CHANGED --
 lvim.builtin.dap.on_config_done = function(dap)
-  dap.adapters.codelldb = codelldb_adapter
+  dap.adapters.codelldb = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
   dap.configurations.rust = {
     {
       name = "Launch file",
@@ -84,4 +90,6 @@ lvim.builtin.dap.on_config_done = function(dap)
     },
   }
 end
+
+vim.api.nvim_set_keymap("n", "<m-d>", "<cmd>RustOpenExternalDocs<Cr>", { noremap = true, silent = true })
 

@@ -6,9 +6,9 @@ end
 copilot.setup {
   panel = {
     keymap = {
-      jump_next = "<c-j>",
-      jump_prev = "<c-k>",
-      accept = "<c-l>",
+      jump_next = "<a-j>",
+      jump_prev = "<a-k>",
+      accept    = "<a-l>",
       refresh = "r",
       open = "<M-CR>",
     },
@@ -17,22 +17,22 @@ copilot.setup {
     enabled = true,
     auto_trigger = true,
     keymap = {
-      accept = "<c-l>",
-      next = "<c-j>",
-      prev = "<c-k>",
-      dismiss = "<c-h>",
+      accept  = "<a-l>",
+      next    = "<a-j>",
+      prev    = "<a-k>",
+      dismiss = "<a-h>",
     },
   },
   filetypes = {
-    yaml = false,
-    markdown = true,
-    help = false,
+    yaml      = false,
+    markdown  = true,
+    help      = false,
     gitcommit = false,
     gitrebase = false,
-    hgcommit = false,
-    svn = false,
-    cvs = false,
-    ["."] = false,
+    hgcommit  = false,
+    svn       = false,
+    cvs       = false,
+    ["."]     = false,
   },
 }
 

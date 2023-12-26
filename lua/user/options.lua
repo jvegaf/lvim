@@ -8,15 +8,15 @@ lvim.builtin.alpha.dashboard.section.header.val = {
 
 -- lvim.colorscheme = "onedark"
 -- lvim.colorscheme = "darkplus"
-lvim.colorscheme = "primer_dark"
+-- lvim.colorscheme = "primer_dark"
 lvim.log.level = "warn"
 lvim.builtin.alpha.active = true
-lvim.reload_config_on_save = false
-lvim.builtin.illuminate.active = false
-lvim.builtin.bufferline.active = false
+-- lvim.reload_config_on_save = false
+-- lvim.builtin.illuminate.active = false
+-- lvim.builtin.bufferline.active = false
 lvim.builtin.terminal.persist_mode = false
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+-- lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.breadcrumbs.active = true
 lvim.builtin.dap.active = true
 lvim.keys.term_mode = { ["<C-l>"] = false }
@@ -28,7 +28,7 @@ lvim.keys.term_mode = { ["<C-l>"] = false }
 -- vim.g.netrw_browse_split = 0
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_winsize = 25
-vim.opt.showtabline = 0
+-- vim.opt.showtabline = 0
 
 local options = {
   backup = false, -- creates a backup file
@@ -41,8 +41,8 @@ local options = {
   ignorecase = true, -- ignore case in search patterns
   mouse = "a", -- allow the mouse to be used in neovim
   pumheight = 10, -- pop up menu height
-  showmode = false, -- we don't need to see things like -- INSERT -- anymore
-  showtabline = 0, -- always show tabs
+  showmode = true, -- we don't need to see things like -- INSERT -- anymore
+  -- showtabline = 0, -- always show tabs
   smartcase = true, -- smart case
   smartindent = true, -- make indenting smarter again
   splitbelow = true, -- force all horizontal splits to go below current window
@@ -91,11 +91,9 @@ end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 vim.filetype.add {
   extension = {
     conf = "dosini",
   },
 }
-
