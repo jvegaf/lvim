@@ -131,6 +131,11 @@ lvim.builtin.which_key.mappings["t"] = {
   c = { "<cmd>tabclose<cr>", "Close Tab" },
   o = { "<cmd>tabonly<cr>", "Only Tab" },
 }
+lvim.builtin.which_key.mappings["z"] = {
+  name = "Diagnostics",
+  x = {  "<Cmd>Telescope diagnostics bufnr=0 theme=get_ivy<CR>", "Buffer diagnostics", },
+  c = {  "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Code Actions" },
+}
 -- lvim.builtin.cmp.enabled = false
 -- lvim.builtin.which_key.mappings["o"] = {
 --   name = "Options",

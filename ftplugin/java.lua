@@ -1,7 +1,9 @@
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "jdtls" })
 local status, jdtls = pcall(require, "jdtls")
 if not status then
   return
 end
+
 
 -- Setup Workspace
 local home = os.getenv "HOME"
@@ -47,15 +49,15 @@ local config = {
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. home .. "/.local/share/lvim/mason/packages/jdtls/lombok.jar",
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config,
+    home .. "/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
     "-data",
     workspace_dir,
   },
-  root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" },
+  root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew", "build.gradle" },
   capabilities = capabilities,
 
   settings = {
@@ -68,11 +70,15 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-11",
-            path = "~/.sdkman/candidates/java/11.0.18-tem",
+            path = "~/.sdkman/candidates/java/11.0.21-tem",
           },
           {
             name = "JavaSE-17",
             path = "~/.sdkman/candidates/java/17.0.9-tem",
+          },
+          {
+            name = "JavaSE-21",
+            path = "~/.sdkman/candidates/java/21.0.1-librca",
           },
         },
       },

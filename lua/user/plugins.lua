@@ -77,7 +77,8 @@ lvim.plugins = {
   },
   {
     "kevinhwang91/nvim-ufo",
-    event = "BufReadPost",
+    dependencies = "kevinhwang91/promise-async",
+    lazy = false,
   },
   "hedyhli/outline.nvim",
   {

@@ -39,8 +39,6 @@ map("i", "jk", "<ESC>", { desc = "Change to Normal Mode" })
 map("x", "p", [["_dP]])
 
 -- LSP
-map("n", "<leader>zx", "<Cmd>Telescope diagnostics bufnr=0 theme=get_ivy<CR>", opts)
-map("n", "<leader>zc", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 map("n", "gq", "<Cmd>lua require('lvim.lsp.utils').format()<CR>", opts)
 
 
