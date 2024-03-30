@@ -16,11 +16,6 @@ lvim.plugins = {
       require("dbee").install()
     end,
   },
-  "kkharji/sqlite.lua",
-  { url = "git@github.com:ChristianChiarulli/bookmark.nvim.git" },
-  { url = "git@github.com:ChristianChiarulli/onedark.nvim.git" },
-  { url = "git@github.com:LunarVim/primer.nvim.git" },
-  -- { "christianchiarulli/tabnine-nvim", build = "./dl_binaries.sh", branch = "suggestion_hl_group" },
   "stevearc/dressing.nvim",
   "AckslD/swenv.nvim",
   "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -104,10 +99,10 @@ lvim.plugins = {
     config = function()
       vim.g.codeium_disable_bindings = 1
 
-      vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<C-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+      vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
   },
   {

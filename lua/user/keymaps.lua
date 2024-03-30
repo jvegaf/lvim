@@ -1,5 +1,5 @@
 M = {}
-lvim.leader = "space"
+lvim.leader = ","
 
 local opts = { noremap = true, silent = true }
 -- For the description on keymaps, I have a function getOptions(desc) which returns noremap=true, silent=true and desc=desc. Then call: keymap(mode, keymap, command, getOptions("some randome desc")
@@ -9,18 +9,21 @@ local keymap = vim.keymap.set
 keymap("n", "<C-Space>", "<cmd>WhichKey \\<space><cr>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 
+-- Cancel search highlighting with ESC
+keymap("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", opts)
+
 -- Normal --
 -- Better window navigation
-keymap("n", "<m-h>", "<C-w>h", opts)
-keymap("n", "<m-j>", "<C-w>j", opts)
-keymap("n", "<m-k>", "<C-w>k", opts)
-keymap("n", "<m-l>", "<C-w>l", opts)
+keymap("n", "<c-h>", "<C-w>h", opts)
+keymap("n", "<c-j>", "<C-w>j", opts)
+keymap("n", "<c-k>", "<C-w>k", opts)
+keymap("n", "<c-l>", "<C-w>l", opts)
 keymap("n", "<m-tab>", "<c-6>", opts)
 
-keymap("n", "<Down>", "<cmd>BookmarkNext<cr>", opts)
-keymap("n", "<Up>", "<cmd>BookmarkPrev<cr>", opts)
-keymap("n", "<Right>", "<cmd>FilemarkNext<cr>", opts)
-keymap("n", "<Left>", "<cmd>FilemarkPrev<cr>", opts)
+-- keymap("n", "<Down>", "<cmd>BookmarkNext<cr>", opts)
+-- keymap("n", "<Up>", "<cmd>BookmarkPrev<cr>", opts)
+-- keymap("n", "<Right>", "<cmd>FilemarkNext<cr>", opts)
+-- keymap("n", "<Left>", "<cmd>FilemarkPrev<cr>", opts)
 
 function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, "t", "<m-h>", [[<C-\><C-n><C-W>h]], opts)
@@ -32,16 +35,16 @@ end
 keymap("n", "<m-e>", "<cmd>NvimTreeFocus<cr>", opts)
 
 -- Select all
-keymap("n", "<C-a>", "gg<S-v>G", opts)
+keymap("n", "<leader>a", "gg<S-v>G", opts)
 
 -- BrowserSearch
 keymap("v", "<A-s>", ":'<,'>BrowserSearch<CR>", opts)
 
 -- move
-keymap("n", "<m-down>", ":m .+1<CR>==", opts)
-keymap("n", "<m-up>", ":m .-2<CR>==", opts)
-keymap("v", "<m-down>", ":m '>+1<CR>gv=gv", opts)
-keymap("v", "<m-up>", ":m '<-2<CR>gv=gv", opts)
+keymap("n", "<a-j>", ":m .+1<CR>==", opts)
+keymap("n", "<a-k>", ":m .-2<CR>==", opts)
+keymap("v", "<a-j>", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "<a-k>", ":m '<-2<CR>gv=gv", opts)
 
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 
@@ -51,9 +54,9 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
-keymap("n", "<c-j>", "<c-d>", opts)
-keymap("n", "<c-k>", "<c-u>", opts)
-keymap("n", "<c-m>", "<s-m>", opts)
+-- keymap("n", "<c-j>", "<c-d>", opts)
+-- keymap("n", "<c-k>", "<c-u>", opts)
+-- keymap("n", "<c-m>", "<s-m>", opts)
 
 keymap("n", "n", "nzz", opts)
 keymap("n", "N", "Nzz", opts)
@@ -71,7 +74,12 @@ keymap("x", "p", [["_dP]])
 -- keymap("v", "p", '"_dp', opts)
 -- keymap("v", "P", '"_dP', opts)
 
-keymap("n", "Q", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "Q", "<cmd>BufferClose<CR>", opts)
+keymap("n", "W", "<cmd>write<CR>", opts)
+keymap("n", "vv", "V", opts)
+
+keymap("n", "<leader>q", ":q<CR>", opts)
+
 
 -- Easyalign
 keymap("n", "ga", "<Plug>(EasyAlign)", opts)
@@ -85,8 +93,8 @@ keymap(
 )
 
 keymap("n", "<F7>", "<cmd>TSHighlightCapturesUnderCursor<cr>", opts)
-keymap("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", opts)
--- keymap("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", opts)
+keymap("n", "<Tab>", "<cmd>BufferNext<cr>", opts)
+keymap("n", "<S-Tab>", "<cmd>BufferPrevious<cr>", opts)
 keymap("n", "-", ":lua require'lir.float'.toggle()<cr>", opts)
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 keymap("n", "<m-v>", "<cmd>lua require('lsp_lines').toggle()<cr>", opts)
